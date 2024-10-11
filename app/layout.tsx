@@ -16,7 +16,7 @@ const geistMono = localFont({
   weight: "100 900",
 });
 const notoSansJP = Noto_Sans_JP({
-  weight: ["100", "400", "700", "900"],
+  weight: ["400", "700"],
   subsets: ["latin"],
   variable: "--font-noto-sans-jp",
 });

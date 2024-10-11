@@ -12,7 +12,6 @@ interface MainNavProps {
 
 const MainNav: React.FC<MainNavProps> = ({ items }) => {
   const [showMobileMenu, setShowMobileMenu] = useState<boolean>(false);
-
   return (
     <div className="flex items-center md:gap-10">
       <Link href="/" className="hidden md:flex items-center space-x-2">
