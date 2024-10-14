@@ -15,7 +15,7 @@ const components = {
 const Mdx: React.FC<MdxProps> = ({ code }) => {
   const Component = useMDXComponent(code);
   return (
-    <div className="prose lg:prose-xl max-w-full">
+    <div className="prose-stone lg:prose-xl max-w-full ">
       <Component components={components} />
     </div>
   );

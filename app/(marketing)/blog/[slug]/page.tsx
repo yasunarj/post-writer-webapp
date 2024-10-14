@@ -6,6 +6,8 @@ import Image from "next/image";
 import { buttonVariants } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Mdx from "@/components/mdx-components";
+import { Metadata } from "next";
+import { siteConfig } from "@/config/site";
 
 const getPostFromSlug = async (slug: string) => {
   const post = allPosts.find((post) => post.slugAsParams === slug);
@@ -46,5 +48,33 @@ const PostPage = async ({ params }: { params: { slug: string } }) => {
     </article>
   );
 };
+
+export const generateMetadata = async ({ params }: { params: { slug: string } }): Promise<Metadata> => {
+  const page = await getPostFromSlug(params.slug);
+
+  if(!page) {
+    return {};
+  };
+
+  return {
+    title: page.title,
+    description: page.description,
+    openGraph: {
+      type: "article",
+      locale: "ja",
+      url: siteConfig.url,
+      title: siteConfig.name,
+      description: siteConfig.description,
+      siteName: siteConfig.name
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: siteConfig.name,
+      description: siteConfig.description,
+      images: [`${siteConfig.url}/og.jpg`],
+      creator: "NariCode",
+    },
+  };
+}
 
 export default PostPage;
