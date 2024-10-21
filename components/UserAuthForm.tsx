@@ -6,18 +6,22 @@ import { Input } from "./ui/input";
 import { Label } from "./ui/label";
 import Icons from "./icons";
 import { signIn } from "next-auth/react";
+import { useState } from "react";
 
 const UserAuthForm = () => {
+  const [isGithubLoading, setIsGithubLoading] = useState<boolean>(false);
+  const [isGoogleLoading, setIsGoogleLoading] = useState<boolean>(false);
+
   return (
     <div className="grid gap-6">
       <form>
         <div className="grid gap-2">
-          <div className="grid gap-2">
+          <div className="grid gap-1">
             <Label htmlFor="email">メールアドレス</Label>
             <Input id="email" placeholder="name@example.com" type="email" />
           </div>
           <button className={cn(buttonVariants({}))}>
-            メールアドレスでログインする
+            メールアドレスでログイン
           </button>
         </div>
       </form>
@@ -32,21 +36,37 @@ const UserAuthForm = () => {
           </span>
         </div>
       </div>
-      <button
-        className={cn(buttonVariants({ variant: "outline" }))}
-        onClick={() => {
-          console.log("GitHub SignIn Button Clicked");
-          signIn("github").then((response) => {
-            alert("Error caught! Check console for details");
-            console.log("SignIn Response:", response);
-          }).catch((e) => {
-            console.error("SignIn Error", e);
-          });
-        }}
-      >
-        <Icons.github className="mr-2" />
-        Github
-      </button>
+
+      <div className="flex flex-col gap-3">
+        <button
+          className={cn(buttonVariants({ variant: "outline" }))}
+          onClick={() => {
+            setIsGithubLoading(true);
+            signIn("github");
+          }}
+        >
+          {isGithubLoading ? (
+            <Icons.spinner className="mr-2 animate-spin" />
+          ) : (
+            <Icons.github className="mr-2" />
+          )}
+          Github
+        </button>
+        <button
+          className={cn(buttonVariants({ variant: "outline" }))}
+          onClick={() => {
+            setIsGoogleLoading(true);
+            signIn("google");
+          }}
+        >
+          {isGoogleLoading ? (
+            <Icons.spinner className="mr-2 animate-spin" />
+          ) : (
+            <Icons.google className="mr-2" />
+          )}
+          Google
+        </button>
+      </div>
     </div>
   );
 };
