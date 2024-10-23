@@ -1,7 +1,11 @@
 import { POSTItem } from "@/types";
 import Link from "next/link";
 import { format } from "date-fns";
+import PostOperations from "./PostOperations";
 
+// interface PostItemProps {
+//   post: Pick<Post, "id" | "title" | "published" | "createdAt">;
+// }
 
 interface PostItemProps {
   post: POSTItem;
@@ -16,6 +20,8 @@ const PostItem = ({ post }: PostItemProps) => {
           <p className="text-sm text-muted-foreground">{format(post.createdAt, "yyyy-MM-dd")}</p>
         </div>
       </div>
+
+      <PostOperations post={post} />
     </div>
   );
 };

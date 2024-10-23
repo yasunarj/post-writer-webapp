@@ -6,6 +6,7 @@ import { db } from "@/lib/db";
 import { getCurrentUser } from "@/lib/session";
 import { redirect } from "next/navigation";
 import { POSTItem } from "@/types";
+import { Divide } from "lucide-react";
 
 const DashboardPage = async () => {
   const user = await getCurrentUser();
@@ -35,11 +36,15 @@ const DashboardPage = async () => {
         <PostCreateButton />
       </DashboardHeader>
       <div>
-        <div className="divide-y border rounded-md">
-          {posts.map((post: POSTItem) => {
-            return <PostItem key={post.id} post={post} />;
-          })}
-        </div>
+        { posts.length ? (
+          <div className="divide-y border rounded-md">
+            {posts.map((post: POSTItem) => {
+              return <PostItem key={post.id} post={post} />;
+            })}
+          </div>
+        ) : (
+          <div className="mr-2">投稿がありません</div>
+        )}
       </div>
     </DashboardShell>
   );
